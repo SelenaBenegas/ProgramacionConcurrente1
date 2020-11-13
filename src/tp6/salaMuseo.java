@@ -1,9 +1,5 @@
 package tp6;
 
-import Objetos.Museo;
-import Objetos.Persona;
-import Objetos.Termometro;
-
 /**
  *
  * @author Selena Benegas
