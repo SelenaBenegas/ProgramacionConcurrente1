@@ -49,7 +49,7 @@ public class Confiteria {
         try {
             semPedir.acquire(); // el mozo le da el menu
             System.out.println("- A ver...");
-            Thread.sleep(500); //simula el tiempo en elegir el pedido
+            Thread.sleep(1000); //simula el tiempo en elegir el pedido
             System.out.println("- Quiero" + pedido() + ", por favor");
         } catch (InterruptedException ex) {
             Logger.getLogger(Confiteria.class
@@ -64,7 +64,7 @@ public class Confiteria {
                     .getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            Thread.sleep(500); //simula el tiempo en comer
+            Thread.sleep(1500); //simula el tiempo en comer
         } catch (InterruptedException ex) {
             Logger.getLogger(Confiteria.class
                     .getName()).log(Level.SEVERE, null, ex);
