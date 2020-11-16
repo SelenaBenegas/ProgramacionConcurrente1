@@ -5,9 +5,6 @@
  */
 package tp6.Obejtos;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Selena Benegas
