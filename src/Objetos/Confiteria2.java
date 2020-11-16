@@ -76,7 +76,7 @@ public class Confiteria2 {
             semBebida.acquire(); //espera que el mozo le de la bebida
             System.out.println(colorEmp + Thread.currentThread().getName() + ": ayy tenía sed");
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -93,13 +93,13 @@ public class Confiteria2 {
             semComer.acquire(); //espera que el cocinero termine su comida
             System.out.println(colorEmp + Thread.currentThread().getName() + ": esto esta re rico! ");
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         try {
             Thread.sleep(1500); //simula el tiempo en comer
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -117,7 +117,7 @@ public class Confiteria2 {
             Thread.sleep(1000); //simula el tiempo en elegir el pedido
             pedido(colorEmp);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(colorEmp + Thread.currentThread().getName() + ": muchas gracias! Chau (:" + "\n");
@@ -130,7 +130,7 @@ public class Confiteria2 {
             semAtender.acquire();
             System.out.println(Thread.currentThread().getName() + ": Buenas, le dejo el menú");
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         semPedir.release();
@@ -144,11 +144,11 @@ public class Confiteria2 {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Confiteria.class
+                Logger.getLogger(Confiteria2.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(Thread.currentThread().getName() + ": Aquí tiene su bebida");
@@ -163,11 +163,11 @@ public class Confiteria2 {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Confiteria.class
+                Logger.getLogger(Confiteria2.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         } catch (InterruptedException ex) {
-            Logger.getLogger(Confiteria.class
+            Logger.getLogger(Confiteria2.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(Thread.currentThread().getName() + ": Aquí tiene su comida, buen provecho");
