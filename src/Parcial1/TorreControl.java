@@ -1,9 +1,6 @@
 package Parcial1;
 
-import Objetos.Confiteria;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TorreControl {
 
@@ -11,10 +8,10 @@ public class TorreControl {
     public Semaphore semUsarPista = new Semaphore(1); // este semáforo asegura que en la pista solo haya un avion, tiene prioridad quien quiera aterrizar.
     public int contAterrizajes = 0; //modificacion del punto b, agruegé un contador de aterrizajes, cuando llegue a 10 puede despegar un avion
 
-    public void usarPista(char accion){
-        
+    public void usarPista(char accion) {
+
     }
-    
+
 }
     /*
     
