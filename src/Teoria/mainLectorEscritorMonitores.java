@@ -1,5 +1,7 @@
 package Teoria;
 
+import java.util.Random;
+
 /**
  *
  * @author Selena Benegas
@@ -7,8 +9,12 @@ package Teoria;
 public class mainLectorEscritorMonitores {
 
     public static void main(String[] args) {
-        int cantE = 5;
-        int cantL = 15;
+        Random r = new Random(); //la cantidad de escritores y lectores será aleatoria.
+        int n = r.nextInt(25 - 10) + 10;
+        int cantE = n;
+        n = r.nextInt(20 - 5) + 5;
+        int cantL = n;
+        System.out.println("Cantidad Escritores: " + cantE + " - Cantidad Lectores: " + cantL);
         int cantH = cantE + cantL;
         LibroConMonitores libro = new LibroConMonitores();
         Escritor[] escritores = new Escritor[cantE];

@@ -21,10 +21,10 @@ public class Escritor implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(7000); // hacen otra cosa
+                Thread.sleep(10000); // hacen otra cosa
                 try {
                     libro.escribir(nombre);
-                    Thread.sleep(7000); // tiempo escribiendo
+                    Thread.sleep((long) (Math.random() + 3) * 1000);// tiempo escribiendo
                     libro.terminarEscribir(nombre);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Escritor.class.getName()).log(Level.SEVERE, null, ex);

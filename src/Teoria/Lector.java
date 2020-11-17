@@ -21,10 +21,10 @@ public class Lector implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(10000); // hacen otra cosa
+                Thread.sleep(7000); // hacen otra cosa
                 try {
                     libro.leer(nombre);
-                    Thread.sleep((long) (Math.random() + 3) * 1000);
+                    Thread.sleep((long) (Math.random() + 5) * 1500);
                     libro.terminarleer(nombre);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
