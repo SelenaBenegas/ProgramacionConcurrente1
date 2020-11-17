@@ -24,7 +24,7 @@ public class Lector implements Runnable {
                 Thread.sleep(10000); // hacen otra cosa
                 try {
                     libro.leer(nombre);
-                    Thread.sleep(5000); // tiempo leyendo
+                    Thread.sleep((long) (Math.random() + 3) * 1000);
                     libro.terminarleer(nombre);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
