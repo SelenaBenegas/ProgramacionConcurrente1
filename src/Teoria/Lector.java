@@ -21,7 +21,7 @@ public class Lector implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(7000); // hacen otra cosa
+                Thread.sleep((long) (Math.random() + 5) * 1500); // hacen otra cosa
                 try {
                     libro.leer(nombre);
                     Thread.sleep((long) (Math.random() + 5) * 1500);
