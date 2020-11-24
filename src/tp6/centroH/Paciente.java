@@ -24,6 +24,11 @@ public class Paciente implements Runnable {
     @Override
     public void run() {
         while (true) {
+            try {
+                Thread.sleep((long) (Math.random() + 5) * 2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             centro.entrar(nombre, sentarse);
             try {
                 Thread.sleep((long) (Math.random() + 5) * 2000);

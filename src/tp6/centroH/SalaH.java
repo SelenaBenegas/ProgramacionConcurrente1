@@ -102,35 +102,44 @@ public class SalaH {
         }
     }*/
     private void esperar(String nombre) {
+        boolean revista;
         try {
             accesoCamilla.lock();
-            tomarRevista(nombre);
+            revista = tomarRevista(nombre);
             System.out.println(nombre + ": Espero a ser atendido...");
             while (camillasOcupadas >= cantCamillas || !cola.obtenerFrente().equals(nombre)) {
                 hayCamilla.await();
             }
-            dejarRevista(nombre);
+            if (revista) {
+                dejarRevista(nombre);
+            }
             camillasOcupadas++;
+            System.out.println("\u001B[34m" + "Cantidad de camillas ocupadas: " + camillasOcupadas);
         } catch (InterruptedException ex) {
         } finally {
             accesoCamilla.unlock();
         }
     }
 
-    private void tomarRevista(String nombre) {
+    private boolean tomarRevista(String nombre) {
+        boolean revista = false;
         try {
             accesoCamilla.lock();
-            while (revistasOcupadas >= cantRevistas) {
+            while (revistasOcupadas >= cantRevistas && !cola.obtenerFrente().equals(nombre)) {
                 System.out.println(nombre + ": Esperando una revista, viendo tv.");
                 hayCamilla.await();
             }
-            revistasOcupadas++;
-            System.out.println(nombre + ": Leyendo :)");
+            if (revistasOcupadas < cantRevistas) {
+                System.out.println(nombre + ": Leyendo :)");
+                revistasOcupadas++;
+                revista = true;
+            }
             System.out.println("\u001B[35m" + "Cantidad de revistas ocupadas:" + revistasOcupadas);
         } catch (InterruptedException ex) {
         } finally {
             accesoCamilla.unlock();
         }
+        return revista;
     }
 
     private void dejarRevista(String nombre) {
@@ -150,6 +159,7 @@ public class SalaH {
         accesoCamilla.lock();
         System.out.println("\u001B[31m" + nombre + ": Termine de donar.");
         camillasOcupadas--;
+        System.out.println("\u001B[34m" + "Cantidad de camillas ocupadas: " + camillasOcupadas);
         hayCamilla.signalAll();
         accesoCamilla.unlock();
 
