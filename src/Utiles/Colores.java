@@ -22,4 +22,15 @@ public class Colores {
         System.out.println("\u001B[37m" + " = BLANCO");
 
     }
+    /*
+        Thread.sleep((long) (Math.random() + 3) * 1000);
+    
+        Random random = new Random();
+        int num = random.nextInt(2);
+    
+        //dentro de un rango
+        Random cant = new Random();
+        int cantP = cant.nextInt(30 - 10) + 10;
+    
+     */
 }
