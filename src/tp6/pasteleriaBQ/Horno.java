@@ -16,17 +16,19 @@ import java.util.logging.Logger;
 public class Horno implements Runnable {
 
     private Pasteleria pasteleria;
+    private char tipo;
     private int peso;
 
-    public Horno(Pasteleria pria, int p) {
+    public Horno(Pasteleria pria,char t, int p) {
         pasteleria = pria;
+        tipo = t;
         peso = p;
     }
 
     @Override
     public void run() {
         while (true) {
-            System.out.println("-- Horneando pastel de peso: " + peso + "kg. --");
+            System.out.println("-- Horno"+tipo+": Horneando pastel de peso: " + peso + "kg. --");
             try {
                 Thread.sleep((long) (Math.random() + 2) * 2000); // tiempo en hornear
             } catch (InterruptedException ex) {

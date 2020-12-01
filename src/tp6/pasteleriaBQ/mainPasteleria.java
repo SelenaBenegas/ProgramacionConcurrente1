@@ -17,8 +17,9 @@ public class mainPasteleria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //MAIN PARA CASO BASE DEL EJEMPLO, DONDE HAY 3 HORNOS, 2 ROBOTS Y 1 BRAZO.
         Pasteleria p = new Pasteleria();
-        Horno a = new Horno(p, 1), b = new Horno(p, 2), c = new Horno(p, 3);
+        Horno a = new Horno(p, 'A', 1), b = new Horno(p, 'B', 2), c = new Horno(p, 'C', 3);
         Robot r1 = new Robot(p, "Robot1"), r2 = new Robot(p, "Robot2");
         Brazo br = new Brazo(p, "Brazo");
         Thread hornoA = new Thread(a), hornoB = new Thread(b), hornoC = new Thread(c);
