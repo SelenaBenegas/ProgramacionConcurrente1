@@ -18,17 +18,26 @@ public class mainPasteleria {
      */
     public static void main(String[] args) {
         //MAIN PARA CASO BASE DEL EJEMPLO, DONDE HAY 3 HORNOS, 2 ROBOTS Y 1 BRAZO.
+        int cant = 2;
         Pasteleria p = new Pasteleria();
         Horno a = new Horno(p, 'A', 1), b = new Horno(p, 'B', 2), c = new Horno(p, 'C', 3);
-        Robot r1 = new Robot(p, "Robot1"), r2 = new Robot(p, "Robot2");
         Brazo br = new Brazo(p, "Brazo");
+        Thread brazo = new Thread(br);
+        Robot[] robots = new Robot[cant];
+        Thread[] hilos = new Thread[cant];
+        for (int i = 0; i < cant; i++) {   // bucle donde se crean los robots empaquetadores.
+            robots[i] = new Robot(p, "Robot" + i);
+        }
+        for (int i = 0; i < cant; i++) { // bucle donde se crean los hilos robots.
+            hilos[i] = new Thread(robots[i]);
+        }
         Thread hornoA = new Thread(a), hornoB = new Thread(b), hornoC = new Thread(c);
-        Thread robot1 = new Thread(r1), robot2 = new Thread(r2), brazo = new Thread(br);
+        for (int i = 0; i < cant; i++) { //bucle start de los hilos personas.
+            hilos[i].start();
+        }
         hornoA.start();
         hornoB.start();
         hornoC.start();
-        robot1.start();
-        robot2.start();
         brazo.start();
     }
 

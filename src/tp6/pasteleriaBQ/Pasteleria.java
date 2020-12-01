@@ -2,6 +2,7 @@ package tp6.pasteleriaBQ;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -21,8 +22,11 @@ public class Pasteleria {
     private int pesoMax; // peso máximo que soporta la caja
 
     public Pasteleria() {
-        // mostrador = new LinkedBlockingQueue();
+        // ** elegir uno y comentar los otros**
         mostrador = new ArrayBlockingQueue(5, true); //En el mostrador entran 5 pasteles
+        //mostrador = new LinkedBlockingQueue(5); //En el mostrador entran 5 pasteles
+        //mostrador = new LinkedBlockingQueue(); //La cantidad de pasteles en el mostrador es ilimitada
+        //** lo que sigue queda igual***
         escribir = new ReentrantLock();
         hayCaja = true; //comienza con una caja 
         pesoMax = (int) (Math.random() * 5) + 10; // el peso máximo de la caja inicial es random
