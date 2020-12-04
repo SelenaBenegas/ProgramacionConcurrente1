@@ -105,41 +105,29 @@ public class Impresora {
         char peticion = ' ';
         imprimir.lock();
         try {
-            try {
-                while (hayDato==0) {
-                    datoCargado.await();
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Impresora.class.getName()).log(Level.SEVERE, null, ex);
+            while (hayDato == 0) {
+                datoCargado.await();
             }
-            peticiones.lock();
-            try {
-                if (!colaP.esVacia()) { //si la cola de peticiones no esta vacia
-                    peticion = (char) colaP.obtenerFrente(); //obtengo la primera peticion
-                    colaP.sacar(); //saco el dato de la lista de peticiones
-                }
-            } finally {
-                peticiones.unlock();
-            }
-            if (peticion != ' ') {
-                System.out.println("\u001B[34m" + "El Servidor intenta imprimir un dato.");
-                System.out.println("\u001B[34m" + "El Servidor busca en cache.");
-                encontrado = buscarMemoriaCache(peticion); //se busca el dato en la cache
-                if (!encontrado) { //si no esta en cache
-                    System.out.println("\u001B[34m" + "El Servidor busca en memoria principal.");
-                    encontrado = buscarMemoriaPrincipal(peticion); //se busca en memoria principal
-                }
-                if(!encontrado) {
-                    System.out.println("Servidor: aún no se han cargado datos en memoria.");
-                } else{
-                    hayDato--;
-                }
-                //si o si se encuentra, solo hay que verificar en que cola tengo que sacar, por lo que el dato lo imprimo aca
-                // System.out.println("\u001B[34m" + "------------- " + peticion + " -------------");
-            }
-        } finally {
-            imprimir.unlock();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Impresora.class.getName()).log(Level.SEVERE, null, ex);
         }
+        peticiones.lock();
+        try {
+            peticion = (char) colaP.obtenerFrente(); //obtengo la primera peticion
+            colaP.sacar(); //saco el dato de la lista de peticiones
+        } finally {
+            peticiones.unlock();
+        }
+        System.out.println("\u001B[34m" + "El Servidor intenta imprimir un dato.");
+        System.out.println("\u001B[34m" + "El Servidor busca en cache.");
+        encontrado = buscarMemoriaCache(peticion); //se busca el dato en la cache
+        if (!encontrado) { //si no esta en cache
+            System.out.println("\u001B[34m" + "El Servidor busca en memoria principal.");
+            buscarMemoriaPrincipal(peticion); //se busca en memoria principal
+        }
+        System.out.println("--------------- " + peticion + "---------------"); //imprime acá porque si o si lo encuentra
+        hayDato--;
+        imprimir.unlock();
     }
 
     public boolean buscarMemoriaCache(char p) {
@@ -147,18 +135,16 @@ public class Impresora {
         char frente;
         memoria1.lock();
         try {
-            if (!cache.esVacia()) { //si no esta vacia
-                frente = (char) cache.obtenerFrente();
-                if (frente == p) { //si el frente de la cola de caché es igual a la peticion
-                    impreso = true; // aviso que esta en memoria cache
-                    cache.sacar(); //y lo elimino de la memoria caché
-                    System.out.println("\u001B[34m" + "------------- " + frente + " -------------");
-            }
+            frente = (char) cache.obtenerFrente();
+            if (frente == p) { //si el frente de la cola de caché es igual a la peticion
+                impreso = true; // aviso que esta en memoria cache
+                cache.sacar(); //y lo elimino de la memoria caché
             } // si la cache esta vacia el dato quedo en memoria principal
             try {
                 Thread.sleep(2000); //simula tiempo en buscar un dato en memoria cache
             } catch (InterruptedException ex) {
-                Logger.getLogger(Impresora.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Impresora.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         } finally {
             memoria1.unlock();
@@ -166,25 +152,18 @@ public class Impresora {
         return impreso;
     }
 
-    public boolean buscarMemoriaPrincipal(char p) {
-        boolean cargado = false;
-        char frente;
+    public void buscarMemoriaPrincipal(char p) {
         memoria2.lock();
         try {
-            if (!principal.esVacia()) {
-                frente = (char) principal.obtenerFrente();
-                System.out.println("\u001B[34m" + "------------- " + frente + " -------------");
-                principal.sacar(); //elimino la peticion de memoria principal
-                cargado = true;
-            }
+            principal.sacar(); //elimino la peticion de memoria principal
             try {
                 Thread.sleep(5000); //simula tiempo en buscar un dato en memoria principal
             } catch (InterruptedException ex) {
-                Logger.getLogger(Impresora.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Impresora.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         } finally {
             memoria2.unlock();
         }
-    return cargado;
     }
 }
